@@ -27,7 +27,7 @@ from rest_framework import permissions
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Constraction ERP",
+        title="Vitasoft Api",
         default_version='v1.0.1',
         description="API documentation for Your Project",
     ),
