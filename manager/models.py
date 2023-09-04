@@ -26,6 +26,7 @@ class WelcomeSection(SingletonModel):
     desscription = models.TextField(max_length=500)
     image_horizontal = models.ImageField(upload_to="upload",null=True,blank=True)
     image_vertical = models.ImageField(upload_to="upload",null=True,blank=True)
+    video = models.URLField(blank=True,null=True)
     def __str__(self):
         return f"{self.title}"
     class Meta:
