@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from global_settings.models import Address, GlobalSettings
 
-from manager.models import SliderItem,WelcomeSection,Image,PracticeAreas,Experiences,WhatweDidItem,WhatweDid,Team,Testimonial,Faq
+from manager.models import ClientLogo, Gallery, Industry, SliderItem,WelcomeSection,Image,PracticeAreas,Experiences,WhatweDidItem,WhatweDid,Team,Testimonial,Faq, WorkTechnology
 
 
 
@@ -65,6 +65,27 @@ class TestimonialSerializer(serializers.ModelSerializer):
         model = Testimonial
         fields = "__all__"
         depth=2
+class WorkTechnologySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WorkTechnology
+        fields = "__all__"
+        depth=2
+class IndustrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Industry
+        fields = "__all__"
+        depth=2
+class ClientLogoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ClientLogo
+        fields = "__all__"
+        depth=2
+
+class GallerySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Gallery
+        fields = "__all__"
+        depth=2
 
 #############################
 #global_settings serializer
@@ -82,65 +103,3 @@ class GlobalSettingsSerializer(serializers.ModelSerializer):
     
 
 
-#combined serializer
-class GlobalContentSerializer(serializers.Serializer):
-    global_Settings = GlobalSettingsSerializer(many=True)
-
-
-class CombinedWedidSerializer(serializers.Serializer):
-    whatdid = WhatweDidSerializer(many=True)
-    whatdiditem = WhatweDidItemSerializer(many=True)
-
-    
-class CombinedSerializer(serializers.Serializer):
-    global_Settings = GlobalSettingsSerializer(many=True)
-    slider= SliderItemSerializer(many=True)
-    practice_areas= PracticeAreasSerializer(many=True)
-    expriences = ExperiencesSerializer(many=True)
-    whatdid = WhatweDidSerializer(many=True)
-    whatdiditem = WhatweDidItemSerializer(many=True)
-    teams= TeamSerializer(many=True)
-    testimonials= TestimonialSerializer(many=True)
-
-
-class HomeSerializer(serializers.Serializer):
-    global_Settings = GlobalSettingsSerializer(many=True)
-    welcome = WelcomeSectionSerializer(many=True)
-    slider= SliderItemSerializer(many=True)
-    practice_areas= PracticeAreasSerializer(many=True)
-    expriences = ExperiencesSerializer(many=True)
-    whatdid = WhatweDidSerializer(many=True)
-    whatdiditem = WhatweDidItemSerializer(many=True)
-    teams= TeamSerializer(many=True)
-    testimonials= TestimonialSerializer(many=True)
-
-
-class AboutSerializer(serializers.Serializer):
-    global_Settings = GlobalSettingsSerializer(many=True)
-    expriences = ExperiencesSerializer(many=True)
-    teams= TeamSerializer(many=True)
-
-
-
-class TeamSerializer(serializers.Serializer):
-    global_Settings = GlobalSettingsSerializer(many=True)
-    teams= TeamSerializer(many=True)
-
-
-
-class FaqSerializer(serializers.Serializer):
-    global_Settings = GlobalSettingsSerializer(many=True)
-    faqs=FaqSerializer(many=True)
-
-
-
-class PracticeAreaSerializer(serializers.Serializer):
-    global_Settings = GlobalSettingsSerializer(many=True)
-    practice_areas= PracticeAreasSerializer(many=True)
-
-
-
-
-class ContactSerializer(serializers.Serializer):
-    address = AddressSerializer(many=True)
-    global_Settings = GlobalSettingsSerializer(many=True)

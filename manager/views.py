@@ -3,130 +3,87 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from global_settings.models import Address, GlobalSettings
-from manager.models import SliderItem,WelcomeSection,Image,PracticeAreas,Experiences,WhatweDidItem,WhatweDid,Team,Testimonial,Faq
-from manager.serializers import AboutSerializer, CombinedSerializer, ContactSerializer, FaqSerializer,GlobalSettingsSerializer,GlobalContentSerializer, HomeSerializer, PracticeAreaSerializer, TeamSerializer
+from manager.models import ClientLogo, Gallery, Industry, SliderItem,WelcomeSection,Image,PracticeAreas,Experiences,WhatweDidItem,WhatweDid,Team,Testimonial,Faq, WorkTechnology
+from manager.serializers import  ClientLogoSerializer, FaqSerializer, GallerySerializer,GlobalSettingsSerializer, ImageSerializer, IndustrySerializer, PracticeAreasSerializer, SliderItemSerializer, TeamSerializer, TestimonialSerializer, WelcomeSectionSerializer, WhatweDidSerializer, WorkTechnologySerializer
 # Create your views here.
-class CombinedDataView(APIView):
-    def get(self, request, format=None):
-        global_Settings = GlobalSettings.objects.all()
-        slider = SliderItem.objects.all()
-        practice_areas = PracticeAreas.objects.all()
-        expriences = Experiences.objects.all()
-        whatdid = WhatweDid.objects.all()
-        whatwediditem = WhatweDidItem.objects.all()
-        teams = Team.objects.all()
-        testimonials = Testimonial.objects.all()
-        welcome= WelcomeSection.objects.all()
-        serializer = CombinedSerializer({
-            'global_Settings': global_Settings,
-            'slider': slider,
-            'welcome':welcome,
-            'practice_areas': practice_areas,
-            'expriences': expriences,
-            'whatdid': whatdid,
-            'whatdiditem':whatwediditem,
-            'teams': teams,
-            'testimonials': testimonials,
-        })
 
-        return Response(serializer.data, status=status.HTTP_200_OK)
     
 class GlobalDataView(APIView):
     def get(self, request, format=None):
-        global_Settings = GlobalSettings.objects.all()
-        serializer = GlobalContentSerializer({
-            'global_Settings': global_Settings,
-            
-        })
+        queryset = GlobalSettings.objects.all()
+        serializer = GlobalSettingsSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
-class HomeDataView(APIView):
+
+############################
+class SliderItemDataView(APIView):
     def get(self, request, format=None):
-        global_Settings = GlobalSettings.objects.all()
-        slider = SliderItem.objects.all()
-        practice_areas = PracticeAreas.objects.all()
-        expriences = Experiences.objects.all()
-        whatdid = WhatweDid.objects.all()
-        whatwediditem = WhatweDidItem.objects.all()
-        teams = Team.objects.all()
-        testimonials = Testimonial.objects.all()
-        welcome= WelcomeSection.objects.all()
-
-        serializer = HomeSerializer({
-            'global_Settings': global_Settings,
-            'slider': slider,
-            'welcome':welcome,
-            'practice_areas': practice_areas,
-            'expriences': expriences,
-            'whatdid': whatdid,
-            'whatdiditem':whatwediditem,
-            'teams': teams,
-            'testimonials': testimonials,
-        })
-
+        queryset = SliderItem.objects.all()
+        serializer = SliderItemSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
-
-class AboutDataView(APIView):
+class WelcomeSectionDataView(APIView):
     def get(self, request, format=None):
-        global_Settings = GlobalSettings.objects.all()
-        expriences = Experiences.objects.all()
-        teams = Team.objects.all()
-
-        serializer = AboutSerializer({
-            'global_Settings': global_Settings,
-            'expriences': expriences,
-            'teams': teams,
-        })
-
+        queryset = WelcomeSection.objects.all()
+        serializer = WelcomeSectionSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
+class ImageDataView(APIView):
+    def get(self, request, format=None):
+        queryset = Image.objects.all()
+        serializer = ImageSerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+class PracticeAreasDataView(APIView):
+    def get(self, request, format=None):
+        queryset = PracticeAreas.objects.all()
+        serializer = PracticeAreasSerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+class WhatweDidDataView(APIView):
+    def get(self, request, format=None):
+        queryset = WhatweDid.objects.all()
+        serializer = WhatweDidSerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class FaqDataView(APIView):
+    def get(self, request, format=None):
+        queryset = Faq.objects.all()
+        serializer = FaqSerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class TeamDataView(APIView):
     def get(self, request, format=None):
-        global_Settings = GlobalSettings.objects.all()
-        teams = Team.objects.all()
-        serializer = TeamSerializer({
-            'global_Settings': global_Settings,
-            'teams': teams,
-        })
+        queryset = Team.objects.all()
+        serializer = TeamSerializer(queryset,many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
+class TestimonialDataView(APIView):
+    def get(self, request, format=None):
+        queryset = Testimonial.objects.all()
+        serializer = TestimonialSerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class WorkTechnologyDataView(APIView):
+    def get(self, request, format=None):
+        queryset= WorkTechnology.objects.all()
+        serializer = WorkTechnologySerializer(queryset,many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
 
-class FaqDataView(APIView):
+class IndustryDataView(APIView):
     def get(self, request, format=None):
-        global_Settings = GlobalSettings.objects.all()
-        faqs = Faq.objects.all()
-
-        serializer = FaqSerializer({
-            'global_Settings': global_Settings,
-            'faqs': faqs,
-        })
-
+        queryset = Industry.objects.all()
+        serializer = IndustrySerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class GalleryDataView(APIView):
+    def get(self, request, format=None):
+        queryset = Gallery.objects.all()
+        serializer = GallerySerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
 
-class PracticeDataView(APIView):
+class ClientLogoDataView(APIView):
     def get(self, request, format=None):
-        global_Settings = GlobalSettings.objects.all()
-        practice_areas = PracticeAreas.objects.all()
-        serializer = PracticeAreaSerializer({
-            'global_Settings': global_Settings,
-            'practice_areas': practice_areas,
-        })
-
-        return Response(serializer.data, status=status.HTTP_200_OK)
-    
-
-class ContactDataView(APIView):
-    def get(self, request, format=None):
-        global_Settings = GlobalSettings.objects.all()
-        address = Address.objects.all()
-
-        serializer = ContactSerializer({
-            'global_Settings': global_Settings,
-            'address': address,
-        })
-
+        queryset = ClientLogo.objects.all()
+        serializer = ClientLogoSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
